@@ -3,6 +3,7 @@
 #include <codecvt>
 #include <fstream>
 #include <iostream>
+#include <locale>
 #include <pomvic.hh>
 
 int main(int argc, char **argv) {
