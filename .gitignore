@@ -1,3 +1,4 @@
 *.o
 vi
 compile_commands.json
+.cache/
