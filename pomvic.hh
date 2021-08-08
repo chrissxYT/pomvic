@@ -3,11 +3,11 @@
 #include <vector>
 
 #ifdef POMVIC_SMALL
-typedef int32_t vipos;
+typedef uint32_t vipos;
 typedef std::string vistring;
 typedef char8_t vichar;
 #else
-typedef int64_t vipos;
+typedef uint64_t vipos;
 typedef std::u32string vistring;
 typedef char32_t vichar;
 #endif
@@ -50,10 +50,6 @@ struct buffer {
 #ifdef POMVIC_INTERNAL_YANK
         vistring yankboard;
 #endif
-        vipos under_cursor() {
-                // TODO: ...
-                return 0;
-        }
 };
 std::vector<vistring> split_by_newlines(vistring raw, vistring *newline) {
         vistring nl;
@@ -133,7 +129,24 @@ void handle_key_command(buffer &b, vichar c, modifier m) {
                 // TODO: back one word
         } else if(none_cmd(U"B")) {
                 // TODO: back one word
-        } else {
+        } else if(none_cmd(U"h")) {
+                if(b.cursor.pos.x > 0) {
+                        b.cursor.pos.x--;
+                }
+        } else if(none_cmd(U"j")) {
+                if(b.cursor.pos.y < b.content.size() - 1) {
+                        b.cursor.pos.x++;
+                }
+        } else if(none_cmd(U"k")) {
+                if(b.cursor.pos.y > 0) {
+                        b.cursor.pos.y--;
+                }
+        } else if(none_cmd(U"l")) {
+                if(b.cursor.pos.x < b.content[b.cursor.pos.y].size() - 1) {
+                        b.cursor.pos.x++;
+                }
+        }
+        else {
                 return;
         }
         s.clear();
