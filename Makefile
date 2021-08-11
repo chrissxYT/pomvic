@@ -14,9 +14,6 @@ vi: vi.o
 vi.o: vi.cc pomvic.hh
 	$(CXX) $(CXXFLAGS) -c -o vi.o vi.cc
 
-compile_commands.json: Makefile vi.cc pomvic.hh
-	bear -- make vi
-
 format:
 	clang-format -Werror -i --style=file --verbose pomvic.hh vi.cc
 
